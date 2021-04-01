@@ -8,8 +8,11 @@ class CoinFlipper extends Component {
     // State üzerinde paranın başlangıçtaki durumunu veriyoruz, başlangıçta "tura" olsun.
     // Daha sonra şu anda paranın dönüp dönmeme durumunu da veriyoruz, başlangıçta para atılmamış olduğundan "false" olarak verdik.
     this.state = {
-      side: "tura",
+      side: "yazi",
       flipping: false,
+      count : 0,
+      yazi : 0,
+      tura : 0
     };
   }
   handleClick = () => {
@@ -17,6 +20,20 @@ class CoinFlipper extends Component {
     this.setState({ flipping: true });
     // 1 saniye kadar dönmesi yeterli, bu yüzden 1 saniye sonra "flipping" durmunu tekrar "false" yapıyoruz.
     setTimeout(() => this.setState({ flipping: false }), 1000);
+    this.setState({count :  this.state.count + 1});
+
+    let randomNumber = Math.round(Math.random()  * 1);
+    
+    if (randomNumber == 0) {
+      this.setState({ side : 'yazi'});
+      this.setState({ yazi : this.state.yazi + 1});
+    } else {
+      this.setState({ side : 'tura'});
+      this.setState({ tura : this.state.tura + 1});
+    }
+    
+    // console.log(randomNumber);
+
   };
 
   render() {
@@ -27,10 +44,10 @@ class CoinFlipper extends Component {
         <button onClick={this.handleClick}>At!</button>
         <p>
           Toplam
-          <strong> 5 </strong>
+          <strong> {this.state.count} </strong>
           atıştan
-          <strong> 3 </strong>ü tura
-          <strong> 2 </strong>
+          <strong> {this.state.tura} </strong>ü tura
+          <strong> {this.state.yazi} </strong>
           si yazı geldi.
         </p>
       </div>
